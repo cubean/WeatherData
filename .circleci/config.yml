@@ -24,7 +24,7 @@ jobs:
           keys: sbt-cache
       - run:
           name: Compile WeatherData dist package
-          command: cat /dev/null | sbt clean update dist
+          command: cat /dev/null | sbt clean update
       - run: sbt test
       - store_artifacts:
           path: target/universal/WeatherData.zip

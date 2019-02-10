@@ -15,7 +15,7 @@ object TemperatureAvgAtLatitude {
   /**
     * Get an average temperature value with latitude value by polynomial curves
     */
-  private val TemperatureAvgCurves: PolynomialFunction = {
+  val TemperatureAvgCurves: PolynomialFunction = {
 
     // The data contains some actual measurements
     // from S.G. Warren & S.T. Schneider, J. Atmos. Sci. 36, 1377-91 (1979)

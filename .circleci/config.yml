@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/WeatherData
+    docker:
+      - image: openjdk:8
+    environment:
+      - SBT_VERSION: 1.2.8
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - sbt-scala-cache-{{ checksum "build.sbt" }}
+      - run: sbt clean test:compile
+      - save_cache:
+          paths: ["~/.m2", "~/.ivy2/cache","~/.sbt/launchers"]
+          key: sbt-scala-cache-{{ checksum "build.sbt" }}
+
+      - run: sbt test

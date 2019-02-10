@@ -31,7 +31,7 @@ jobs:
           destination: WeatherData
       - save_cache:
           key: sbt-cache
-            paths:
-              - "~/.ivy2/cache"
-              - "~/.sbt"
-              - "~/.m2"
+          paths:
+            - "~/.ivy2/cache"
+            - "~/.sbt"
+            - "~/.m2"

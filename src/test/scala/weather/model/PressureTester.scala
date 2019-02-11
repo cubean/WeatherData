@@ -3,7 +3,7 @@ package weather.model
 import org.scalatest.{FlatSpec, Matchers, PrivateMethodTester}
 
 class PressureTester extends FlatSpec with Matchers with PrivateMethodTester {
-  "To any elevation" should "returns reasonable Atmospheric Pressure value" in {
+  "To any temperature and elevation" should "returns reasonable Atmospheric Pressure value" in {
     println("\n>> getPressureValue test start")
     CitySamples.cityTempSamples.foreach(t => {
       // Test atmospheric pressure

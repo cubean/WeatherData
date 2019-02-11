@@ -2,6 +2,7 @@ package weather.model
 
 import java.time.LocalDateTime
 
+import weather.calculation.WeatherCalculation
 import weather.etl.{CityPosition, CityPositionGenerator, WeatherInfo}
 
 /**
@@ -17,6 +18,10 @@ object CitySamples {
         c.city.compareToIgnoreCase("Melbourne") == 0 ||
         c.city.compareToIgnoreCase("Adelaide") == 0
     )
+  }
+
+  lazy val cityPosInAuSamples: Seq[CityPosition] = {
+    cityPosSamples.filter(_.country.compareToIgnoreCase("Australia") == 0)
   }
 
   private val dtNow = LocalDateTime.now
@@ -54,5 +59,15 @@ object CitySamples {
         WeatherInfo(c.location, c.country, c.latitude, c.longitude, c.elevation, c.dt, c.weatherInfo, c.temp, c.pressure, humidity)
       }
     }
+  }
+
+  private val inputCities = Seq(
+    ("Sydney", "Australia", "2015-12-23 16:02:12"),
+    ("Melbourne", "Australia", "2015-12-25 02:30:55"),
+    ("Adelaide", "Australia", "2016-01-04 23:05:37")
+  )
+
+  lazy val cityWeatherSamples: Seq[WeatherInfo] = inputCities.flatMap {
+    c => WeatherCalculation.getWeatherInfo(c._1, c._2, c._3)
   }
 }

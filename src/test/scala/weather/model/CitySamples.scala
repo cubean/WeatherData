@@ -31,7 +31,7 @@ object CitySamples {
       c => {
         localDTPoints.map(dt => {
           val temp = TemperatureAlg.getTemperatureValue(c.latitude, dt)
-          WeatherInfo(c.city, c.county, c.latitude, c.longitude, c.elevation, c.timeZone, "", temp, 0.0, 0.0)
+          WeatherInfo(c.city, c.country, c.latitude, c.longitude, c.elevation, c.timeZone, "", temp, 0.0, 0.0)
         }
         )
       }
@@ -39,10 +39,19 @@ object CitySamples {
   }
 
   lazy val cityPressureSamples: Seq[WeatherInfo] = {
-    cityPosSamples.map {
+    cityTempSamples.map {
       c => {
-        val pressure = PressureAlg.getPressureValue(c.latitude, c.elevation)
-        WeatherInfo(c.city, c.county, c.latitude, c.longitude, c.elevation, c.timeZone, "", 0.0, pressure, 0.0)
+        val pressure = PressureAlg.getPressureValue(c.temp, c.elevation)
+        WeatherInfo(c.location, c.country, c.latitude, c.longitude, c.elevation, c.dt, c.weatherInfo, c.temp, pressure, c.humidity)
+      }
+    }
+  }
+
+  lazy val cityHumiditySamples: Seq[WeatherInfo] = {
+    cityPressureSamples.map {
+      c => {
+        val humidity = HumidityAlg.getHumidityValue(c.temp, c.pressure)
+        WeatherInfo(c.location, c.country, c.latitude, c.longitude, c.elevation, c.dt, c.weatherInfo, c.temp, c.pressure, humidity)
       }
     }
   }

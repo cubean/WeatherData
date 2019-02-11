@@ -12,7 +12,7 @@ object ConditionsAlg {
     *
     * @return Sunny, Rain or Snow
     */
-  def HumidityValue(temp: Double, humidity: Double): String = {
+  def getConditionValue(temp: Double, humidity: Double): String = {
     if (humidity >= 100) {
       if (temp > 0) "Rain" else "Snow"
     } else "Sunny"

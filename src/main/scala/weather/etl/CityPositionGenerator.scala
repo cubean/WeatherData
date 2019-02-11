@@ -42,7 +42,7 @@ object CityPositionGenerator {
     * city elevation timeZone info
     * @param name city name
     * @param country country name
-    * @param elevation elevation value
+    * @param elevation elevation value [m]. Need to be converted from feet.
     * @param timeZone timeZone value
     */
   case class cityEleTZInfo(name: String, country: String, elevation: Double, timeZone: String)
@@ -60,7 +60,7 @@ object CityPositionGenerator {
     lineIterator.map(
       l => {
         val lineInfo = l.replaceAll("\"", "").split(",")
-        cityEleTZInfo(lineInfo(2), lineInfo(3), lineInfo(8).toDouble, lineInfo(11))
+        cityEleTZInfo(lineInfo(2), lineInfo(3), lineInfo(8).toDouble * 0.3048, lineInfo(11))
       }
     )
   }

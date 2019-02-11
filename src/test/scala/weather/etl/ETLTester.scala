@@ -1,39 +1,40 @@
 package weather.etl
 
-import org.scalatest.FunSuite
+import org.scalatest.{FlatSpec, Matchers}
 
-class ETLTester extends FunSuite{
-  test("cityLatLngSeq -  should get back cities with Sydney name") {
+class ETLTester extends FlatSpec with Matchers {
+  "cityLatLngSeq"  should "get back cities with Sydney name" in {
     println(">> cityLatLngSeq test start")
 
-    val cityLatLngSeq= CityPositionGenerator.cityLatLng.filter(c => c.name.compareToIgnoreCase("Sydney") == 0)
-    assert(cityLatLngSeq.nonEmpty)
+    val cityLatLngSeq: Seq[CityPositionGenerator.cityLatLngInfo] =
+      CityPositionGenerator.cityLatLng.filter(c => c.name.compareToIgnoreCase("Sydney") == 0)
+    cityLatLngSeq should not be empty
     cityLatLngSeq.foreach(println)
 
     println(">> cityLatLngSeq test end.")
   }
 
-  test("cityElevationTimeZone -  should get back cities with Sydney name") {
+  "cityElevationTimeZone" should "get back cities with Sydney name" in {
     println(">> cityElevationTimeZone test start")
 
     val cityElevationTimeZoneSeq=
       CityPositionGenerator.cityElevationTimeZone.
       filter(c => c.name.compareToIgnoreCase("Sydney") == 0)
 
-    assert(cityElevationTimeZoneSeq.nonEmpty)
+    cityElevationTimeZoneSeq should not be empty
     cityElevationTimeZoneSeq.foreach(println)
 
     println(">> cityElevationTimeZone test end.")
   }
 
-  test("cityPositions -  should get back cities with Sydney name") {
+  "cityPositions" should "get back cities with Sydney name" in {
     println(">> cityPositions test start")
 
     val cityPositionsSeq=
       CityPositionGenerator.cityPositions.
         filter(c => c.city.compareToIgnoreCase("Sydney") == 0)
 
-    assert(cityPositionsSeq.nonEmpty)
+    cityPositionsSeq should not be empty
     cityPositionsSeq.foreach(println)
 
     println(">> cityPositions test end.")

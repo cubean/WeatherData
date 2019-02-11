@@ -2,9 +2,9 @@ package weather.model
 
 import java.time.{LocalDate, LocalDateTime}
 
-import org.scalatest.{FlatSpec, PrivateMethodTester}
+import org.scalatest.{FlatSpec, Matchers, PrivateMethodTester}
 
-class TemperatureTester extends FlatSpec with PrivateMethodTester {
+class TemperatureTester extends FlatSpec with Matchers with PrivateMethodTester {
   "A latitude" should "returns reasonable temperature at some day of a year" in {
     println("\n>> annualRevisedT test start")
 
@@ -26,20 +26,20 @@ class TemperatureTester extends FlatSpec with PrivateMethodTester {
             val tValueStr = "%+.1f".format(tValue)
             println(s"Annual revised temperature at $l in $dt is $tValueStr")
             val rangeMax = TemperatureAvgAtLatitude.TRange(l)
-            assert(math.abs(tValue) <= math.abs(rangeMax))
+            math.abs(tValue) should be <= math.abs(rangeMax)
             (l, dt, tValue, rangeMax)
           }
         }
       }
     }.foreach(p =>
       if (p._1 > 0 && p._2.getMonthValue >= 4 && p._2.getMonthValue <= 8)
-        assert(p._3 >= 0, "Temperature of north hemisphere from April to Aug. should be higher than average temperature")
+        p._3 should be >= 0.0 //("Temperature of north hemisphere from April to Aug. should be higher than average temperature")
       else if (p._1 < 0 && p._2.getMonthValue >= 4 && p._2.getMonthValue <= 8)
-        assert(p._3 <= 0, "Temperature of southern hemisphere from April to Aug. should be lower than average temperature")
+        p._3 should be <= 0.0 //("Temperature of southern hemisphere from April to Aug. should be lower than average temperature")
       else if (p._1 > 0 && p._2.getMonthValue >= 1 && p._2.getMonthValue <= 2)
-        assert(p._3 <= 0, "Summer temperature of north hemisphere from Jan. to Feb. should be lower than average temperature")
+        p._3 should be <= 0.0 //("Summer temperature of north hemisphere from Jan. to Feb. should be lower than average temperature")
       else if (p._1 < 0 && p._2.getMonthValue >= 1 && p._2.getMonthValue <= 2)
-        assert(p._3 >= 0, "Summer temperature of southern hemisphere from Jan. to Feb. should be higher than average temperature")
+        p._3 should be >= 0.0 //("Summer temperature of southern hemisphere from Jan. to Feb. should be higher than average temperature")
     )
     println(">> annualRevisedT test end.\n")
   }
@@ -66,7 +66,7 @@ class TemperatureTester extends FlatSpec with PrivateMethodTester {
             val tValueStr = "%+.1f".format(tValue)
             println(s"Daily revised temperature at $l in $dt is $tValueStr")
             val rangeMax = TemperatureAvgAtLatitude.TRange(l)
-            assert(math.abs(tValue) <= math.abs(rangeMax))
+            math.abs(tValue) should be <= math.abs(rangeMax)
           }
         }
       }
@@ -94,8 +94,7 @@ class TemperatureTester extends FlatSpec with PrivateMethodTester {
             val tValueStr = "%+.1f".format(tValue)
             println(s"Revised temperature at $l in $dt is $tValueStr")
             val rangeMax = TemperatureAvgAtLatitude.TRange(l)
-            assert(math.abs(tValue) - math.abs(TemperatureAvgAtLatitude.TemperatureAvgCurves.value(l))
-              <= (2 * math.abs(rangeMax)))
+            math.abs(tValue) - math.abs(TemperatureAvgAtLatitude.TemperatureAvgCurves.value(l)) should be <= (2 * math.abs(rangeMax))
           }
         }
       }

@@ -37,4 +37,13 @@ object CitySamples {
       }
     }
   }
+
+  lazy val cityPressureSamples: Seq[WeatherInfo] = {
+    cityPosSamples.map {
+      c => {
+        val pressure = PressureAlg.getPressureValue(c.latitude, c.elevation)
+        WeatherInfo(c.city, c.county, c.latitude, c.longitude, c.elevation, c.timeZone, "", 0.0, pressure, 0.0)
+      }
+    }
+  }
 }

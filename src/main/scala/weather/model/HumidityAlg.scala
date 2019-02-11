@@ -13,7 +13,7 @@ object HumidityAlg {
     * @param pressure the pressure value of the city. [hPa]
     * @return Humidity value. [hPa]
     */
-  def HumidityValue(temp: Double, pressure: Double): Double = {
+  def getHumidityValue(temp: Double, pressure: Double): Double = {
     val hum = pressure / (vaporPressureCurves.value(temp) * 10)
 
     if (hum > 100) 100 else hum

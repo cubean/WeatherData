@@ -3,7 +3,7 @@ package weather.etl
 import org.scalatest.{FlatSpec, Matchers}
 
 class ETLTester extends FlatSpec with Matchers {
-  "cityLatLngSeq"  should "get back cities with Sydney name" in {
+  "cityLatLngSeq" should "get back cities with Sydney name" in {
     println(">> cityLatLngSeq test start")
 
     val cityLatLngSeq: Seq[CityPositionGenerator.cityLatLngInfo] =
@@ -17,9 +17,9 @@ class ETLTester extends FlatSpec with Matchers {
   "cityElevationTimeZone" should "get back cities with Sydney name" in {
     println(">> cityElevationTimeZone test start")
 
-    val cityElevationTimeZoneSeq=
+    val cityElevationTimeZoneSeq =
       CityPositionGenerator.cityElevationTimeZone.
-      filter(c => c.name.compareToIgnoreCase("Sydney") == 0)
+        filter(c => c.name.compareToIgnoreCase("Sydney") == 0)
 
     cityElevationTimeZoneSeq should not be empty
     cityElevationTimeZoneSeq.foreach(println)
@@ -30,7 +30,7 @@ class ETLTester extends FlatSpec with Matchers {
   "cityPositions" should "get back cities with Sydney name" in {
     println(">> cityPositions test start")
 
-    val cityPositionsSeq=
+    val cityPositionsSeq =
       CityPositionGenerator.cityPositions.
         filter(c => c.city.compareToIgnoreCase("Sydney") == 0)
 

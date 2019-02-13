@@ -60,7 +60,7 @@ https://github.com/cubean/WeatherData/tree/master/jar/WeatherData-assembly-0.1.j
 
 - If you only installed java 8 in your environment
 
-Go to the your local folder where the WeatherData-assembly-0.1.jar sits in, then run next command:
+Go to your local folder where the WeatherData-assembly-0.1.jar sits in, then run next command:
 
 ```cmd
 java -jar WeatherData-assembly-0.1.jar

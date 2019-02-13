@@ -1,6 +1,8 @@
 package weather.etl
 
-import scala.io.Source
+import java.nio.charset.{Charset, CodingErrorAction}
+
+import scala.io.{Codec, Source}
 
 /**
   * Generate City Position containing latitude, longitude and elevation in metres above sea level
@@ -24,7 +26,9 @@ object CityPositionGenerator {
     */
   lazy val cityLatLng: Seq[cityLatLngInfo] = {
     println("Loading csv files to get city info...")
-    val source = Source.fromResource("worldcities.csv")
+
+    val source = Source.fromResource("worldcities.csv")(Codec.UTF8)
+    assert(source != null)
     val lineIterator = source.getLines().mkString("\n").split("\n")
     source.close()
     println(s"Line numbers in the file: ${lineIterator.size}")
@@ -52,7 +56,7 @@ object CityPositionGenerator {
     */
   lazy val cityElevationTimeZone: Seq[cityEleTZInfo] = {
     println("Loading dat files to get city elevation and timezone info...")
-    val source = Source.fromResource("airports.dat")
+    val source = Source.fromResource("airports.dat")(Codec.UTF8)
     val lineIterator = source.getLines().mkString("\n").split("\n")
     source.close()
     println(s"Line numbers in the file: ${lineIterator.size}")
